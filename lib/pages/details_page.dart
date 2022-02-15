@@ -19,8 +19,31 @@ class _DetailsPageState extends State<DetailsPage> {
           child: Column(
             children: [
               AppBarCustom(),
-              Image(),
-              DescriptionCard(),
+              TweenAnimationBuilder<double?>(
+                tween: Tween(begin: 1, end: 0),
+                duration: Duration(seconds: 1),
+                child: Image(),
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: 1 - value!,
+                    child: child,
+                  );
+                },
+              ),
+              TweenAnimationBuilder<double?>(
+                tween: Tween(begin: 1, end: 0),
+                duration: Duration(seconds: 2),
+                child: DescriptionCard(),
+                builder: (context, value, child) {
+                  return Transform.translate(
+                    offset: Offset(0, 200 * value!),
+                    child: Opacity(
+                      opacity: 1 - value,
+                      child: child,
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -37,7 +60,7 @@ class DescriptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 320,
+      height: 340,
       width: double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(
@@ -186,7 +209,7 @@ class Image extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
       child: Container(
-        height: 400,
+        height: 360,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(40),
             color: Colors.black,

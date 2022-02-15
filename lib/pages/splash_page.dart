@@ -24,74 +24,96 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              height: 350,
-              width: double.maxFinite,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(40),
+            TweenAnimationBuilder<double?>(
+              tween: Tween(begin: 1, end: 0),
+              duration: Duration(seconds: 1),
+              child: Container(
+                height: 350,
+                width: double.maxFinite,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(40),
+                  ),
+                  color: Colors.white,
                 ),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(height: 10),
-                    Text(
-                      'Discover Rare Collectibles',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 35,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    Text(
-                      'Buy and Sell Rare Collectibles\nfrom Top Artists',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: GestureDetector(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: TweenAnimationBuilder<double?>(
+                      tween: Tween(begin: 1, end: 0),
+                      duration: Duration(seconds: 3),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(height: 10),
+                          Text(
+                            'Discover Rare Collectibles',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 35,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        child: Container(
-                          height: 70,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Color.fromARGB(255, 13, 183, 183),
+                          Text(
+                            'Buy and Sell Rare Collectibles\nfrom Top Artists',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
-                          child: Center(
-                            child: Text(
-                              'Explore NFTs',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: GestureDetector(
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomePage(),
+                                ),
+                              ),
+                              child: Container(
+                                height: 70,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Color.fromARGB(255, 13, 183, 183),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Explore NFTs',
+                                    style: TextStyle(
+                                      decoration: TextDecoration.none,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(height: 10),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 10),
-                  ],
+                      builder: (context, value, child) {
+                        return Opacity(
+                          opacity: 1 - value!,
+                          child: child,
+                        );
+                      }),
                 ),
               ),
+              builder: (context, value, child) {
+                return Opacity(
+                  opacity: 1 - value!,
+                  child: Transform.translate(
+                    offset: Offset(0, 200 * value),
+                    child: child,
+                  ),
+                );
+              },
             ),
           ],
         ),

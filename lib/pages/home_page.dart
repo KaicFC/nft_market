@@ -20,17 +20,38 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                AppBarCustom(),
-                TitleSchedule(title: 'Categories'),
-                categories(),
-                TitleSchedule(title: 'Featured NFTs'),
-                Card(),
-                TitleSchedule(title: 'Top Sellers'),
-                ListTopSellers(),
-              ],
-            ),
+            child: TweenAnimationBuilder<double?>(
+                tween: Tween(begin: 1, end: 0),
+                duration: Duration(seconds: 2),
+                child: Column(
+                  children: [
+                    AppBarCustom(),
+                    TitleSchedule(title: 'Categories'),
+                    categories(),
+                    TitleSchedule(title: 'Featured NFTs'),
+                    TweenAnimationBuilder<double?>(
+                        tween: Tween(begin: 1, end: 0),
+                        duration: Duration(seconds: 2),
+                        child: Card(),
+                        builder: (context, value, child) {
+                          return Transform.translate(
+                            offset: Offset(200 * value!, 0),
+                            child: child,
+                          );
+                        }),
+                    TitleSchedule(title: 'Top Sellers'),
+                    ListTopSellers(),
+                  ],
+                ),
+                builder: (context, value, child) {
+                  return Opacity(
+                    opacity: 1 - value!,
+                    child: Transform.translate(
+                      offset: Offset(0, 100 * value),
+                      child: child,
+                    ),
+                  );
+                }),
           ),
         ),
       ),
